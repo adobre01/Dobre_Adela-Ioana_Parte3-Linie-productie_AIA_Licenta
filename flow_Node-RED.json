@@ -1,0 +1,166 @@
+[
+    {
+        "id": "a0887b9943e7d318",
+        "type": "tab",
+        "label": "Flow 10",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "04ded9f0b2503b04",
+        "type": "debug",
+        "z": "a0887b9943e7d318",
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e19b76c88c5ae95f",
+        "type": "mqtt sparkplug in",
+        "z": "a0887b9943e7d318",
+        "name": "",
+        "topic": "spBv1.0/UDTGroup/NDATA/Edge Node 03",
+        "qos": "0",
+        "broker": "8d6723a4757e4b97",
+        "x": 420,
+        "y": 200,
+        "wires": [
+            [
+                "04ded9f0b2503b04"
+            ]
+        ]
+    },
+    {
+        "id": "50b19553cf52a57b",
+        "type": "debug",
+        "z": "a0887b9943e7d318",
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "c44b98b485ec526d",
+        "type": "mqtt sparkplug out",
+        "z": "a0887b9943e7d318",
+        "name": "",
+        "topic": "spBv1.0/UDTGroup/NCMD/Edge Node 03",
+        "qos": "0",
+        "retain": "",
+        "broker": "8d6723a4757e4b97",
+        "x": 920,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "79aa5457b3fdf64f",
+        "type": "function",
+        "z": "a0887b9943e7d318",
+        "name": "BandaUDT1",
+        "func": "let data = new Date().toISOString();\n\nmsg.payload = {\n    \"timestamp\": data,\n    \"metrics\": [{\n        \n    \n       \"name\": \"BandaUDT1/CuloareObiecte\",\n        \"timestamp\": data,\n        \"type\": \"String\",\n        \"value\": msg.payload.culoare\n    },\n    {\n        \"name\": \"BandaUDT1/NrObiecte\",\n        \"timestamp\": data,\n        \"type\": \"Int32\",\n        \"value\": msg.payload.numar_obiecte\n    }\n    \n\n    ]\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 340,
+        "wires": [
+            [
+                "c44b98b485ec526d",
+                "50b19553cf52a57b"
+            ]
+        ]
+    },
+    {
+        "id": "a0ae06bd0f7dc66a",
+        "type": "mqtt in",
+        "z": "a0887b9943e7d318",
+        "name": "",
+        "topic": "test/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2677e3c113588167",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 310,
+        "y": 340,
+        "wires": [
+            [
+                "79aa5457b3fdf64f"
+            ]
+        ]
+    },
+    {
+        "id": "8d6723a4757e4b97",
+        "type": "mqtt-sparkplug-broker",
+        "name": "",
+        "deviceGroup": "",
+        "eonName": "",
+        "broker": "localhost",
+        "port": 1883,
+        "clientid": "",
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "enableStoreForward": false,
+        "compressAlgorithm": "",
+        "aliasMetrics": false,
+        "useTemplates": true,
+        "manualEoNBirth": false,
+        "primaryScada": ""
+    },
+    {
+        "id": "2677e3c113588167",
+        "type": "mqtt-broker",
+        "name": "localhostCamin",
+        "broker": "localhost",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "5",
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
